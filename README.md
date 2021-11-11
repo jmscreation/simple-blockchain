@@ -1,4 +1,4 @@
-# BlockO Blockchain
+# The Simple Blockchain
  
 ## A Quick And Simple Blockchain
 
@@ -21,3 +21,10 @@ printblock <block-index>
 ```
 
 *All parameters to the commands are required
+
+
+## To Build
+
+Make sure you have MinGW64 bin folder configured in your system path.
+
+Run the `build.bat` script
