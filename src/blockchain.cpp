@@ -92,7 +92,7 @@ bool Blockchain::ValidateBlockSignature(const Block& block) {
         if(rsa.sha256_hash(name) != block.prevhash) return false; // invalid root hash
 
         if(!rsa.ImportKey(block.owner)){ // update public key to root owner
-            std::cout << "Root key failed to load!\n";
+            return false;
         }
     } else {
         Block prevBlock;
@@ -102,12 +102,10 @@ bool Blockchain::ValidateBlockSignature(const Block& block) {
         }
 
         if(CalculateBlockHash(prevBlock) != block.prevhash){
-            std::cout << "Chain has broken hash link!\n";
             return false; // broken chain
         }
 
         if(!rsa.ImportKey(prevBlock.owner)){ // update public key
-            std::cout << "Public key failed to load!\n";
             return false; // failed to import key
         }
     }
@@ -331,23 +329,30 @@ bool Blockchain::ImportBlockChain(const std::string& path) {
     std::cout << "importing \"" << name << "\" blockchain\n";
     size_t sc = 0;
     for(size_t i=0; i < header.blockCount; ++i){
-        Block block;
+        Block block {};
+        bool valid = true;
 
-        reader.readData(block.id);
-        reader.readData(block.previd);
-        reader.readData(block.timestamp);
+        valid &= reader.readData(block.id);
+        valid &= reader.readData(block.previd);
+        valid &= reader.readData(block.timestamp);
 
-        reader.readString(block.prevhash);
-        reader.readString(block.owner);
-        reader.readString(block.nonce);
-        reader.readString(block.data);
+        valid &= reader.readString(block.prevhash);
+        valid &= reader.readString(block.owner);
+        valid &= reader.readString(block.nonce);
+        valid &= reader.readString(block.data);
 
-        reader.readString(block.signature.hash);
-        reader.readString(block.signature.signature);
+        valid &= reader.readString(block.signature.hash);
+        valid &= reader.readString(block.signature.signature);
+
+        if(!valid){
+            std::cout << "Failed to load block: End Of Stream\n";
+            break;
+        }
 
         std::cout << "Importing block [" << block.id << "] ...";
+        
         if(!ValidateBlockSignature(block)){
-            std::cout << "\t failed!\n";
+            std::cout << " failed!                                            \n";
             continue;
         }
 
