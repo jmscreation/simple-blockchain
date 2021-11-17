@@ -24,7 +24,7 @@ set ASYNC_BUILD=1
 :: Configure Source For Compiling And Additional Custom Library Directories / Names
 set SOURCE_DIRECTORIES=src
 set INCLUDE_DIRECTORIES=include
-set LIBRARY_DIRECTORIES=libraries\libtomcrypt
+set LIBRARY_DIRECTORIES=libraries\libtomcrypt-main
 set LIBRARY_NAMES=tomcrypt64 tommath64
 
 :: Custom Library Support Directory Names
