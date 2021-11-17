@@ -33,6 +33,6 @@
 
 #Private keys and sensitive data
 *.key
-keys/
-.vscode/
-.objs64/
+keys
+.vscode
+libraries
