@@ -1,4 +1,0 @@
-[submodule "libraries/libtomcrypt"]
-	path = libraries/libtomcrypt
-	url = https://github.com/jmscreation/libtomcrypt
-	branch = main
