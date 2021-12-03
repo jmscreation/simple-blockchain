@@ -2,6 +2,7 @@
 
 #include <sstream>
 #include <memory>
+#include <cstring>
 
 class DataManipulator {
 

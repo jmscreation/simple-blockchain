@@ -1,9 +1,14 @@
 #include "blockchain.h"
 #include <iostream>
 
+#ifdef _WIN32
 #include "windows.h"
-
-
+#endif
+#ifdef __linux__
+#include <X11/X.h>
+#include <X11/keysym.h>
+#include <X11/Xlib.h>
+#endif
 
 void PrintData(const std::string& title, const std::string& data) {
     std::cout << title << " (" << data.size() << "): ";
@@ -27,7 +32,7 @@ bool FindParam(const std::string& arg, std::string& param, int ind=1){
     it->clear(); // consume parameter
     return true;
 }
-
+#ifdef _WIN32
 bool Confirm() {
     bool yes = false, no = false;
 
@@ -39,6 +44,39 @@ bool Confirm() {
 
     return yes;
 }
+#endif
+
+#ifdef __linux__
+
+static Display* disp = XOpenDisplay("");
+
+bool GetKeyState(KeySym keySym)
+{
+    if(disp == NULL)
+    {
+        return false;
+    }
+ 
+    char szKey[32];
+    int iKeyCodeToFind = XKeysymToKeycode(disp, keySym);
+ 
+    XQueryKeymap(disp, szKey);
+ 
+    return szKey[iKeyCodeToFind / 8] & (1 << (iKeyCodeToFind % 8));
+}
+
+bool Confirm() {
+    bool yes = false, no = false;
+
+    std::cout << "Press Y or N\n";
+    do {
+        yes = GetKeyState('Y');
+        no = GetKeyState('N');
+    } while(!yes && !no);
+
+    return yes;
+}
+#endif
 
 bool ToInteger(const std::string& value, int64_t& out) {
     try {
