@@ -4,6 +4,7 @@
 #include "tomcrypt.h"
 
 #include <string>
+#include <algorithm>
 
 class Crypto {
     rsa_key keypair;

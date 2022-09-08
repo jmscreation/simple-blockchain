@@ -4,6 +4,8 @@
 #include "fileio.h"
 
 #include <vector>
+#include <string>
+#include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
