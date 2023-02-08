@@ -23,8 +23,16 @@ printblock <block-index>
 *All parameters to the commands are required
 
 
-## To Build
+## To Build (Windows)
 
-Make sure you have MinGW64 bin folder configured in your system path.
+If using the provided build script:
+
+Make sure you have the MinGW64 `bin` folder configured in your system environment path.
+
+You'll also need to clone the [libtomcrypt](https://github.com/jmscreation/libtomcrypt) static library binaries to: `libraries/libtomcrypt-main`
+You can also use the [dependency tracker](https://github.com/jmscreation/dependency-tracker) to automate this process.
 
 Run the `build.bat` script
+
+### Note:
+Building on Linux requires the libtomcrypt and libtommath static library binaries for Linux which are currently not provided.
