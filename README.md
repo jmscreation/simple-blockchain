@@ -35,4 +35,4 @@ You can also use the [dependency tracker](https://github.com/jmscreation/depende
 Run the `build.bat` script
 
 ### Note:
-Building on Linux requires the libtomcrypt and libtommath static library binaries for Linux which are currently not provided.
+Building on Linux requires the libtomcrypt and libtommath static library binaries for Linux. You can install this package using `sudo apt-get install libtomcrypt-dev` or whichever package manager you use.
