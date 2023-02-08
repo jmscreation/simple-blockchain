@@ -15,7 +15,7 @@ ASYNC_BUILD=1
 
 SOURCE_DIRECTORY="src"
 COMPILER_FLAGS="-std=c++20"
-ADDITIONAL_LIBRARIES="-static-libstdc++ -lX11 -lGL -lpthread -lpng -lstdc++fs -ltomcrypt64 -ltommath64"
+ADDITIONAL_LIBRARIES="-static -static-libstdc++ -ltomcrypt64 -ltommath64"
 ADDITIONAL_LIBDIRS="-Llibraries/libtomcrypt-main/lib/linux"
 ADDITIONAL_INCLUDEDIRS="-Iinclude -Ilibraries/libtomcrypt-main/include"
 
