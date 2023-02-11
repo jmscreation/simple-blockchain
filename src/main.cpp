@@ -5,9 +5,6 @@
 #include "windows.h"
 #endif
 #ifdef __linux__
-#include <X11/X.h>
-#include <X11/keysym.h>
-#include <X11/Xlib.h>
 #endif
 
 void PrintData(const std::string& title, const std::string& data) {
@@ -48,33 +45,27 @@ bool Confirm() {
 
 #ifdef __linux__
 
-static Display* disp = XOpenDisplay("");
-
-bool GetKeyState(KeySym keySym)
+uint8_t GetKeyState()
 {
-    if(disp == NULL)
-    {
-        return false;
+    uint8_t key;
+    std::cin >> key;
+
+    if(key >= 97 || key <= 122){ // lc letter input
+        key -= 32; // make upper case
     }
- 
-    char szKey[32];
-    int iKeyCodeToFind = XKeysymToKeycode(disp, keySym);
- 
-    XQueryKeymap(disp, szKey);
- 
-    return szKey[iKeyCodeToFind / 8] & (1 << (iKeyCodeToFind % 8));
+
+    return key;
 }
 
 bool Confirm() {
     bool yes = false, no = false;
-
+    uint8_t key;
     std::cout << "Press Y or N\n";
     do {
-        yes = GetKeyState('Y');
-        no = GetKeyState('N');
-    } while(!yes && !no);
+        key = GetKeyState();
+    } while(key != 'Y' && key != 'N');
 
-    return yes;
+    return key == 'Y';
 }
 #endif
 

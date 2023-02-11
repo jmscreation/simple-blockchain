@@ -7,7 +7,7 @@ CPP=g++
 GPP=g++
 OUTPUT="program.elf"
 
-DEBUGMODE=1
+DEBUGMODE=0
 LINK_ONLY=0
 
 VERBOSE=0
@@ -15,11 +15,15 @@ ASYNC_BUILD=1
 
 SOURCE_DIRECTORY="src"
 COMPILER_FLAGS="-std=c++20"
-ADDITIONAL_LIBRARIES="-static -static-libstdc++ -ltomcrypt64 -ltommath64"
+ADDITIONAL_LIBRARIES="-static-libstdc++ -lpthread -ltomcrypt -ltommath"
 ADDITIONAL_LIBDIRS="-Llibraries/libtomcrypt-main/lib/linux"
 ADDITIONAL_INCLUDEDIRS="-Iinclude -Ilibraries/libtomcrypt-main/include"
 
 OBJ_DIR=".objs64"
+
+echo "------------------------"
+$GPP -v
+echo "------------------------"
 
 if [ -f "$OUTPUT" ]; then
     rm $OUTPUT
